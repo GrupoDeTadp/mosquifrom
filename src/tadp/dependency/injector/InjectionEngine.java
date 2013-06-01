@@ -14,8 +14,6 @@ import tadp.dependency.injector.exception.noSeQueConstructorUsarException;
  * */
 public class InjectionEngine {
 	
-	Map<Class<?>, Class<?>> parts;
-	
 	Map<Class<?>, ClassBuilder<?>> hows;
 	
 	private InjectionEngine(){		
