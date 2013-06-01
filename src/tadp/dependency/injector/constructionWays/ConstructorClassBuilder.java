@@ -49,31 +49,8 @@ public class ConstructorClassBuilder<T> extends ClassBuilder<T> {
 		return null;
 	}
 	
-	private Constructor<?> elegirConstructor(Constructor<?>[] constructors) {
-		Constructor<?> constructorElegido = null;
-		boolean encontreMasDeuno = false;
-		
-		for (Constructor<?> constructor : constructors) {
-			if (constructor.isAnnotationPresent(ConectenloAMisVenas.class)){
-				constructorElegido = constructor;
-				encontreMasDeuno = false;
-				break;
-			}else if (puedoUsarEsteConstructor(constructor)){
-				if( constructorElegido == null){
-					constructorElegido = constructor;
-				}else{
-					encontreMasDeuno = true;
-				}
-			}
-		}
-		
-		if(encontreMasDeuno)
-			throw new noSeQueConstructorUsarException();
-		
-		return constructorElegido;
-	}
-
-	private boolean puedoUsarEsteConstructor(Constructor<?> constructor) {
+	@Override
+	boolean puedoUsarEsteConstructor(Constructor<?> constructor) {
 		Class<?>[] parameterTypes = constructor.getParameterTypes();
 		boolean ret = true;
 		

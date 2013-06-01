@@ -8,6 +8,7 @@ import tadp.dependency.injector.exception.noSeQueConstructorUsarException;
 import tadp.dependency.injector.fixture.Ensalada;
 import tadp.dependency.injector.fixture.EnsaladaErronea;
 import tadp.dependency.injector.fixture.EnsaladaErroneaStructure;
+import tadp.dependency.injector.fixture.EnsaladaJuanCarlosStructure;
 import tadp.dependency.injector.fixture.EnsaladaStructure;
 import tadp.dependency.injector.fixture.Ingrediente;
 import tadp.dependency.injector.fixture.Papa;
@@ -60,6 +61,18 @@ public class InjectionEngineTest {
 		
 		
 	}
+	
+	@Test
+	public void puedoHacerUnaEnsaladaYLlamarlaJuanCarlos() {
+		InjectionStructure structure = new EnsaladaJuanCarlosStructure();
+		
+		InjectionEngine ebrion = InjectionEngine.createEngine(structure);
+		
+		Ensalada ensalada = ebrion.sparkOfLife(Ensalada.class);
+		
+		Assert.assertNotNull(ensalada);
+		Assert.assertEquals("Juan Carlos", ensalada.getNombre());
+	}
 
 	@Test
 	public void puedoConstruirunaVeladorConLamparitaOsram() {
@@ -71,5 +84,8 @@ public class InjectionEngineTest {
 		Assert.assertTrue(velador.getLuz() instanceof LamparitasOsram);
 		
 	}
+
+	
+	
 	
 }

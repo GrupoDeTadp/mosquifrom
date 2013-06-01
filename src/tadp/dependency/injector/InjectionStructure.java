@@ -5,6 +5,7 @@ import java.util.Map;
 
 import tadp.dependency.injector.constructionWays.ClassBuilder;
 import tadp.dependency.injector.constructionWays.ConstructorClassBuilder;
+import tadp.dependency.injector.constructionWays.ConstructorWithParamsBuilder;
 
 public abstract class InjectionStructure {
 	Map<Class<?>, ClassBuilder<?>> hows = new HashMap<Class<?>, ClassBuilder<?>>();
@@ -24,8 +25,8 @@ public abstract class InjectionStructure {
 		this.hows.put(part, new ConstructorClassBuilder<T>(part));
 	}
 	
-//	protected void define(Class<?> part, Class<?> partImpl, InjectionParameter... parameters){
-//		this.hows.put(part, partImpl);
-//	}
-//	
+	protected <T> void define(Class<?> part, Class<T> partImpl, InjectionParameter... parameters){
+		this.hows.put(part, new ConstructorWithParamsBuilder<T>(partImpl, parameters));
+	}
+	
 }
