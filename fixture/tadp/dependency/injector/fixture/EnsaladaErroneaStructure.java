@@ -1,8 +1,8 @@
 package tadp.dependency.injector.fixture;
 
-import tadp.dependency.injector.EmbrionStructure;
+import tadp.dependency.injector.InjectionStructure;
 
-public class EnsaladaErroneaStructure extends EmbrionStructure {
+public class EnsaladaErroneaStructure extends InjectionStructure {
 
 	@Override
 	public void defineParts() {

@@ -9,7 +9,7 @@ public class Ensalada {
 
 	List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
 	
-	@ConectenloAMisVenas
+	//@ConectenloAMisVenas
 	public Ensalada(Ingrediente ingrediente){
 		this.ingredientes.add(ingrediente);
 	}
