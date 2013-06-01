@@ -4,7 +4,10 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import tadp.dependency.injector.exception.noSeQueConstructorUsarException;
 import tadp.dependency.injector.fixture.Ensalada;
+import tadp.dependency.injector.fixture.EnsaladaErronea;
+import tadp.dependency.injector.fixture.EnsaladaErroneaStructure;
 import tadp.dependency.injector.fixture.EnsaladaStructure;
 import tadp.dependency.injector.fixture.Ingrediente;
 import tadp.dependency.injector.fixture.Papa;
@@ -39,4 +42,20 @@ public class EmbrionTest {
 		
 	}
 
+	@Test
+	public void unaEnsaladaQueNoSePuedeArmar() {
+		EmbrionStructure structure = new EnsaladaErroneaStructure();
+		
+		Embrion ebrion = Embrion.createEmbrion(structure);
+		
+		try{
+			EnsaladaErronea ensalada = ebrion.sparkOfLife(EnsaladaErronea.class);
+			Assert.fail();
+		}catch(noSeQueConstructorUsarException no){
+			
+		}
+		
+		
+	}
+	
 }
