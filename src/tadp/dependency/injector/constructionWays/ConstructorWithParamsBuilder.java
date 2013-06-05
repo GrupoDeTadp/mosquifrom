@@ -4,13 +4,14 @@ import java.lang.reflect.Constructor;
 import java.util.Map;
 
 import tadp.dependency.injector.InjectionParameter;
+import tadp.dependency.injector.exception.NoPudimosCrearLaInstanciaException;
 
-public class ConstructorWithParamsBuilder<T> extends ClassBuilder<T> {
+public class ConstructorWithParamsBuilder<T> extends ConstructorClassBuilder<T> {
 
 	InjectionParameter[] params;
 	
 	public ConstructorWithParamsBuilder(Class<T> clazz, InjectionParameter... parmas){
-		this.underConstruction = clazz;
+		super(clazz);
 		params = parmas;
 		enableAnnotation = false;
 	}
@@ -44,7 +45,7 @@ public class ConstructorWithParamsBuilder<T> extends ClassBuilder<T> {
 	}
 
 	@Override
-	boolean puedoUsarEsteConstructor(Constructor<?> constructor) {
+	protected boolean puedoUsarEsteConstructor(Constructor<?> constructor) {
 		Class<?>[] parameterTypes = constructor.getParameterTypes();
 		boolean hasSameParams = false;
 		int i = 0;
@@ -58,7 +59,6 @@ public class ConstructorWithParamsBuilder<T> extends ClassBuilder<T> {
 			i++;
 		}		
 		
-		System.out.println("Puedo este " + constructor + " " + hasSameParams);
 		return hasSameParams;
 	}
 

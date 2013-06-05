@@ -1,6 +1,6 @@
 package tadp.dependency.injector.fixture.velador;
 
-import tadp.dependency.injector.InjectionStructure;
+import tadp.dependency.injector.structure.InjectionStructure;
 
 public class VeladorConOsramStructure extends InjectionStructure {
 

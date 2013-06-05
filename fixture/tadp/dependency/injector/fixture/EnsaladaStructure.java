@@ -1,6 +1,6 @@
 package tadp.dependency.injector.fixture;
 
-import tadp.dependency.injector.InjectionStructure;
+import tadp.dependency.injector.structure.InjectionStructure;
 
 public class EnsaladaStructure extends InjectionStructure {
 

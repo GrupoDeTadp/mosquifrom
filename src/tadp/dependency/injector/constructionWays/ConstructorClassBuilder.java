@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import tadp.dependency.injector.ConectenloAMisVenas;
-import tadp.dependency.injector.exception.noSeQueConstructorUsarException;
+import tadp.dependency.injector.exception.NoSeQueConstructorUsarException;
 
 public class ConstructorClassBuilder<T> extends ClassBuilder<T> {
 
@@ -49,8 +49,32 @@ public class ConstructorClassBuilder<T> extends ClassBuilder<T> {
 		return null;
 	}
 	
-	@Override
-	boolean puedoUsarEsteConstructor(Constructor<?> constructor) {
+	protected Constructor<?> elegirConstructor(Constructor<?>[] constructors) {
+		Constructor<?> constructorElegido = null;
+		boolean encontreMasDeuno = false;
+		
+		for (Constructor<?> constructor : constructors) {
+			if (constructor.isAnnotationPresent(ConectenloAMisVenas.class) && enableAnnotation){
+				constructorElegido = constructor;
+				encontreMasDeuno = false;
+				break;
+			}else if (puedoUsarEsteConstructor(constructor)){
+				if( constructorElegido == null){
+					constructorElegido = constructor;
+				}else{
+					encontreMasDeuno = true;
+				}
+			}
+		}
+		
+		if(encontreMasDeuno)
+			throw new NoSeQueConstructorUsarException();
+		
+		return constructorElegido;
+	}
+
+	
+	protected boolean puedoUsarEsteConstructor(Constructor<?> constructor) {
 		Class<?>[] parameterTypes = constructor.getParameterTypes();
 		boolean ret = true;
 		

@@ -1,37 +1,30 @@
 package tadp.dependency.injector;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 import tadp.dependency.injector.constructionWays.ClassBuilder;
-import tadp.dependency.injector.exception.noSeQueConstructorUsarException;
+import tadp.dependency.injector.structure.ConfigStructure;
 
 /**
  * El embrion es donde se gestan los objetos.. los mosquifrom, los que inyectan...
  * */
 public class InjectionEngine {
 	
-	Map<Class<?>, ClassBuilder<?>> hows;
+	Map<Class<?>, ClassBuilder<?>> hows = new HashMap<Class<?>, ClassBuilder<?>>();
 	
 	private InjectionEngine(){		
 	}
 	
-	public static InjectionEngine createEngine(InjectionStructure structure){
+	public static InjectionEngine createEngine(ConfigStructure structure){
 		InjectionEngine engine = new InjectionEngine();
 		
-		engine.hows = structure.organize();		
+		structure.configure(engine.hows);		
 		
 		return engine;
 	}
 	
 	public <T> T sparkOfLife(Class<T> clazz){
-		return this.get(clazz);
-	}
-	
-	public <T> T get(Class<T> clazz){
 		
 		ClassBuilder<?> classBuilder = hows.get(clazz);
 		
