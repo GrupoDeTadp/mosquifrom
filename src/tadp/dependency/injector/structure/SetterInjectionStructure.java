@@ -5,8 +5,14 @@ import java.util.Map;
 
 import tadp.dependency.injector.InjectionParameter;
 import tadp.dependency.injector.constructionWays.ClassBuilder;
-import tadp.dependency.injector.constructionWays.SettersClassBuilder;
 import tadp.dependency.injector.constructionWays.SimpleConstructorClassBuilder;
+import tadp.dependency.injector.constructionWays.setters.PropertyClassBuilder;
+import tadp.dependency.injector.constructionWays.setters.PropertyClassListBuilder;
+import tadp.dependency.injector.constructionWays.setters.PropertyValueBuilder;
+import tadp.dependency.injector.constructionWays.setters.SettersClassBuilder;
+import tadp.dependency.injector.fixture.velador.MamparaConDibujitos;
+import tadp.dependency.injector.fixture.velador.MamparaSobria;
+import tadp.dependency.injector.fixture.velador.Velador;
 
 public abstract class SetterInjectionStructure extends InjectionStructure implements ConfigStructure {
 
@@ -15,8 +21,21 @@ public abstract class SetterInjectionStructure extends InjectionStructure implem
 	protected <T> void injectProperty(Class<T> part, String propertyName ){
 		SettersClassBuilder<T> classBuilder = getSetterClassBuilder(part, part);
 
-		classBuilder.addProperty(propertyName);
+		classBuilder.addProperty(new PropertyClassBuilder<T>(propertyName));
 	}
+	
+	protected <T> void injectProperty(Class<T> part, String propertyName, Object value) {
+		SettersClassBuilder<T> classBuilder = getSetterClassBuilder(part, part);
+		
+		classBuilder.addProperty(new PropertyValueBuilder<T>(propertyName,value));
+	}
+	
+	protected <T> void injectPropertyList(Class<T> part, String propertyName, Class<?>...classes) {
+		SettersClassBuilder<T> classBuilder = getSetterClassBuilder(part, part);
+		
+		classBuilder.addProperty(new PropertyClassListBuilder<T>(propertyName,classes));
+	}
+
 	
 	@Override
 	protected <T> void define(Class<?> part, Class<T> partImpl){
@@ -39,8 +58,8 @@ public abstract class SetterInjectionStructure extends InjectionStructure implem
 	private <T> SettersClassBuilder<T> getSetterClassBuilder(Class<?> part,	Class<T> partImpl) {
 		SettersClassBuilder<T> classBuilder = (SettersClassBuilder<T>) this.propertiesHows.get(part);
 		if(classBuilder == null){
-			SettersClassBuilder<T> builder = new SettersClassBuilder<T>(partImpl); 
-			this.propertiesHows.put(part, builder);
+			classBuilder = new SettersClassBuilder<T>(partImpl); 
+			this.propertiesHows.put(part, classBuilder);
 		}
 		return classBuilder;
 	}

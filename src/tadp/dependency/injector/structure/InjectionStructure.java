@@ -7,7 +7,7 @@ import tadp.dependency.injector.InjectionParameter;
 import tadp.dependency.injector.constructionWays.ClassBuilder;
 import tadp.dependency.injector.constructionWays.ConstructorClassBuilder;
 import tadp.dependency.injector.constructionWays.ConstructorWithParamsBuilder;
-import tadp.dependency.injector.constructionWays.SettersClassBuilder;
+import tadp.dependency.injector.constructionWays.setters.SettersClassBuilder;
 
 public abstract class InjectionStructure implements ConfigStructure {
 	Map<Class<?>, ClassBuilder<?>> hows = new HashMap<Class<?>, ClassBuilder<?>>();

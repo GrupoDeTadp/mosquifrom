@@ -4,9 +4,9 @@ import java.util.Map;
 
 public abstract class ClassBuilder<T> {
 	
-	Class<T> underConstruction;
-	Map<Class<?>, ClassBuilder<?>> hows;
-	boolean enableAnnotation = true;
+	protected Class<T> underConstruction;
+	protected Map<Class<?>, ClassBuilder<?>> hows;
+	protected boolean enableAnnotation = true;
 	
 	public abstract T build(Map<Class<?>, ClassBuilder<?>> how);
 

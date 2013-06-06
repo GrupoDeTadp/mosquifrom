@@ -12,14 +12,16 @@ import tadp.dependency.injector.structure.SetterInjectionStructure;
 public class InjectionEngineUsingSettersTest {
 
 	@Test
-	public void inyectarUnNombreYUnaMarcaAlVeladorConLamapritaOsram() {
+	public void inyectarUnaMarcaAlVeladorConLamapritaOsram() {
 		SetterInjectionStructure structure = new SetterVeladorConOsramStructure();
 		
 		InjectionEngine ebrion = InjectionEngine.createEngine(structure);
 		Velador velador = ebrion.sparkOfLife(Velador.class);
 		
 		Assert.assertTrue(velador.getLuz() instanceof LamparitasOsram);
-			
+		Assert.assertEquals("Cuchuflo", velador.getMarca());
+		Assert.assertNull(velador.getAlto());
+		Assert.assertEquals(2, velador.getMamparas().size());
 	}
 
 }
